@@ -31,6 +31,29 @@ pub enum DeviceAuth {
 pub type DeviceAuthenticationBytes = Tag24<DeviceAuthentication>;
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
+pub struct DeviceAuthentication2(
+    &'static str,
+    pub CborValue,
+    pub String,
+    pub DeviceNamespacesBytes,
+);
+
+impl DeviceAuthentication2 {
+    pub fn new(
+        transcript: CborValue,
+        doc_type: String,
+        namespaces_bytes: DeviceNamespacesBytes,
+    ) -> Self {
+        Self(
+            "DeviceAuthentication",
+            transcript,
+            doc_type,
+            namespaces_bytes,
+        )
+    }
+}
+
+#[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct DeviceAuthentication(
     &'static str,
     pub SessionTranscript,
